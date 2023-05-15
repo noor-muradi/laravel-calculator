@@ -1,0 +1,49 @@
+pipeline {
+    
+    agent {
+        label 'dev'
+    }
+     
+    environment {
+        scannerHome = '/opt/sonar-scanner-4.8.0.2856-linux'
+    }
+     
+    stages{
+         
+        stage('Checkout Git') {
+            
+            steps{
+                 
+                 git branch: 'master', url: 'git@github.com:noor-muradi/laravel-calculator.git'
+                 
+            }
+            
+        }    
+        
+        stage('SonarQube Analysis'){
+            steps{
+                
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        } 
+        
+        stage('Build Docker Image') {
+         
+            steps{
+                
+                sh 'docker build -t noormuradi/laravel-dev .'
+                sh 'docker push noormuradi/laravel-dev'
+            }
+            
+        }
+        
+        stage('Deploy to Dev-server') {
+            
+            steps{
+                sh 'docker rm -f laravel-dev || true'
+                sh 'docker run -it -d --name laravel-dev -p 8181:8181 noormuradi/laravel-dev || true'
+            }
+        }
+        
+    } 
+}
