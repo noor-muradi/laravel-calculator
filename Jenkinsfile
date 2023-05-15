@@ -29,7 +29,7 @@ pipeline {
             }
             
         }    
-        stage('Docker Image Build'){
+        stage('Build Docker Image'){
             steps{
                 
                 sh 'docker build -t noormuradi/laravel-pipeline .'
