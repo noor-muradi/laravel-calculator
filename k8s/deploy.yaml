@@ -11,7 +11,7 @@ spec:
       app: laravel
   template:
     metadata:
-      label:
+      labels:
         app: laravel      
     spec:
       containers:
