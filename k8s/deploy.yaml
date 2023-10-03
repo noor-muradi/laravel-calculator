@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: deployment
+metadata:
+  name: laravel
+  namespace: practice
+  label:
+    app: laravel
+spec:
+  selector:
+    matchLabels:
+      app: laravel
+  template:
+    metadata:
+      label:
+        app: laravel      
+    spec:
+      containers:
+      - name: laravel
+        image: noormuradi/laravel
+        ports:
+        - containerPort: 8181
+
+--- 
+apiVersion: v1
+kind: service
+metdata:
+  name: laravel
+  namespace: practice
+  labels:
+    app: laravel
+spec:
+  ports:
+  - port: 80
+    targetPort: 8181
+  selector:
+    app: laravel    
