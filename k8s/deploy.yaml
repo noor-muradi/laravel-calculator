@@ -22,7 +22,7 @@ spec:
 
 --- 
 apiVersion: v1
-kind: service
+kind: Service
 metadata:
   name: laravel
   namespace: practice
