@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: laravel
   namespace: practice
-  label:
+  labels:
     app: laravel
 spec:
   selector:
